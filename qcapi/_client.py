@@ -7,6 +7,7 @@ from pprint import pformat
 from qcapi._object import ObjectEndpoint
 from ._backtests import Backtests
 from ._live import LiveEndpoint
+from ._compile import CompileEndpoint
 from .errors import QCException
 from typing import Type, TypeVar, TYPE_CHECKING, overload
 
@@ -42,6 +43,7 @@ class QCClient:
         self.backtests = Backtests(self, "/backtests")
         self.live = LiveEndpoint(self, "/live")
         self.object = ObjectEndpoint(self, "/object")
+        self.compile = CompileEndpoint(self, "/compile")
 
     @overload
     def request(

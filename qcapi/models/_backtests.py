@@ -41,3 +41,7 @@ class BacktestSummaryResponse(BaseModel):
     count: int
     success: bool
     errors: list[str] = []
+
+
+class BacktestResult(BaseModel):
+    ...
