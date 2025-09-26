@@ -1,0 +1,32 @@
+[build-system]
+requires = [
+    "setuptools>=61.0", 
+    "setuptools_scm[toml]>=6.2"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gcapi"
+version = "0.1.0"
+description = "For interacting with quant-connect"
+readme = "README.md"
+authors = [
+    { name = "Your Name", email = "" },
+]
+# license = { file = "LICENSE" }
+keywords = ["example", "package", "python"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "requests",
+    "fastapi",
+]
+
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
