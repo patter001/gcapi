@@ -72,7 +72,12 @@ class QCClient:
             if response.json().get("status", None) == "loading" and time.time() - first_time < self._timeout:
                 continue
             elif not resp_data.get("success", True):
-                raise QCException(f"QC error for {url}", errors=resp_data.get("errors", None))
+                errors = resp_data.get("errors", None)
+                if errors is not None and len(errors) > 0:
+                    error_str = errors[0]
+                else:
+                    error_str = "Unknown error"
+                raise QCException(f"QC error for {url}\n\t{error_str}", errors=errors)
             else:
                 break
 

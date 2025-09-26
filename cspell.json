@@ -9,6 +9,7 @@
         "backtests",
         "fastapi",
         "gcapi",
+        "pydantic",
         "setuptools"
     ],
     // flagWords - list of words to be always considered incorrect

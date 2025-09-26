@@ -10,9 +10,7 @@ name = "gcapi"
 version = "0.1.0"
 description = "For interacting with quant-connect"
 readme = "README.md"
-authors = [
-    { name = "Your Name", email = "" },
-]
+
 # license = { file = "LICENSE" }
 keywords = ["example", "package", "python"]
 classifiers = [
@@ -22,7 +20,7 @@ classifiers = [
 ]
 dependencies = [
     "requests",
-    "fastapi",
+    "pydantic",
 ]
 
 
