@@ -1,8 +1,9 @@
 # https://www.quantconnect.com/docs/v2/cloud-platform/api-reference/backtest-management/list-backtests
 
 from __future__ import annotations
-from typing import Optional
-from pydantic import BaseModel
+from typing import Optional, Any
+from pydantic import BaseModel, Field
+from datetime import datetime
 
 # parameter set is just a dict
 ParameterSet = dict | list
@@ -36,12 +37,8 @@ class BacktestSummaryResult(BaseModel):
     winRate: float
 
 
-class BacktestSummaryResponse(BaseModel):
+class BacktestSummaryResponse (BaseModel):
     backtests: list[BacktestSummaryResult]
     count: int
     success: bool
     errors: list[str] = []
-
-
-class BacktestResult(BaseModel):
-    ...

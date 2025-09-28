@@ -17,21 +17,24 @@ class CompileEndpoint:
             response_type=CompileResponse,
         )
 
-    def read(self, project_id: str, compile_id: str) -> "CompileResponse":
+    def read(self, project_id: str, compile_id: str) -> "CompileReadResponse":
         return self._client.request(
             "GET",
             f"{self._url}/read",
             json=dict(projectId=project_id, compileId=compile_id),
-            response_type=CompileResponse,
+            response_type=CompileReadResponse,
         )
 
-class CompileResponse(BaseModel):
-    projectId: int
+class CompileReadResponse(BaseModel):
     compileId: str
     state: Literal['InQueue', 'BuildSuccess', 'BuildError']
+    success: bool
+    errors: Optional[list[str]] = None
+    logs: Optional[list[str]] = None
+    
+class CompileResponse(CompileReadResponse):
+    projectId: int
     parameters: list # this was empty in my test
     signature: str
     signatureOrder: list[str]
-    success: bool
-    logs: Optional[list[str]] = None
-    errors: Optional[list[str]] = None
+

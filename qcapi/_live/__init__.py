@@ -1,5 +1,4 @@
 from typing import TYPE_CHECKING
-from ..models import BacktestSummaryResponse
 from ._orders import LiveOrdersEndpoint
 
 if TYPE_CHECKING:
