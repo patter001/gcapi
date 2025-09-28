@@ -20,7 +20,7 @@ class Backtests:
             response_type=BacktestSummaryResponse ,
         )
     
-    def create(self, project_id: str, compile_id: str, backtest_name, parameters: dict|None):
+    def create(self, project_id: str | int, compile_id: str, backtest_name, parameters: dict|None):
         ...
         # parameters syntax in to json is a bit odd:
         #  "parameters[name]": "parameters[ema_fast] = 10, parameters[ema_slow] = 100"
@@ -34,7 +34,7 @@ class Backtests:
             response_type=BacktestResponse,
         )
 
-    def read(self, project_id: str, backtest_id: str, chart: str | None = None):
+    def read(self, project_id: str | int, backtest_id: str, chart: str | None = None):
         if chart is not None:
             params = dict(projectId=project_id, backtestId=backtest_id, chart=chart)
         else:
@@ -46,7 +46,7 @@ class Backtests:
             response_type=BacktestResponse,
         )
 
-    def delete(self, project_id: str, backtest_id: str):
+    def delete(self, project_id: str | int, backtest_id: str):
         return self._client.request(
             "DELETE",
             f"{self._url}/delete",

@@ -9,7 +9,7 @@ class CompileEndpoint:
         self._client = client
         self._url = url
 
-    def create(self, project_id: str):
+    def create(self, project_id: str | int):
         return self._client.request(
             "POST",
             f"{self._url}/create",
@@ -17,7 +17,7 @@ class CompileEndpoint:
             response_type=CompileResponse,
         )
 
-    def read(self, project_id: str, compile_id: str) -> "CompileReadResponse":
+    def read(self, project_id: str | int, compile_id: str) -> "CompileReadResponse":
         return self._client.request(
             "GET",
             f"{self._url}/read",

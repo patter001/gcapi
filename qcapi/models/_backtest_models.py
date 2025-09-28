@@ -28,9 +28,6 @@ class CreateBacktestRequest(BaseModel):
         description="Optional. Parameters used in the backtest"
     )
 
-    class Config:
-        allow_population_by_field_name = True
-
 
 # ============== ENUM MODELS ==============
 
@@ -69,9 +66,6 @@ class ResearchGuide(BaseModel):
     )
     parameters: int = Field(..., description="Number of parameters detected")
 
-    class Config:
-        allow_population_by_field_name = True
-
 
 class ChartSummary(BaseModel):
     """Contains the names of all charts."""
@@ -98,9 +92,6 @@ class RuntimeStatistics(BaseModel):
     return_: Optional[str] = Field(None, alias="Return", description="Return")
     unrealized: Optional[str] = Field(None, alias="Unrealized", description="Unrealized profit/loss")
     volume: Optional[str] = Field(None, alias="Volume", description="Total transaction volume")
-
-    class Config:
-        allow_population_by_field_name = True
 
 
 class StatisticsResult(BaseModel):
@@ -168,20 +159,9 @@ class StatisticsResult(BaseModel):
         description="The average Portfolio Turnover"
     )
 
-    class Config:
-        allow_population_by_field_name = True
-
 
 class TradeStatistics(BaseModel):
     """A set of statistics calculated from a list of closed trades."""
-
-    # model_config = ConfigDict(
-    #     # Handle timezone-aware datetime strings
-    #     json_encoders={
-    #         datetime: lambda v: v.strftime('%Y-%m-%dT%H:%M:%SZ')
-    #     },
-    #     populate_by_name = True
-    # )
 
     start_date_time: datetime | None = Field(
         None,
@@ -498,9 +478,6 @@ class PortfolioStatistics(BaseModel):
         description="The 1-day VaR for the portfolio, 95% confidence level"
     )
 
-    class Config:
-        allow_population_by_field_name = True
-
 
 class Trade(BaseModel):
     """Represents a closed trade."""
@@ -548,9 +525,6 @@ class Trade(BaseModel):
         description="The amount of profit given back before the trade was closed"
     )
 
-    class Config:
-        allow_population_by_field_name = True
-
 
 class AlgorithmPerformance(BaseModel):
     """The AlgorithmPerformance class is a wrapper for TradeStatistics and PortfolioStatistics."""
@@ -569,9 +543,6 @@ class AlgorithmPerformance(BaseModel):
         alias="closedTrades",
         description="The algorithm statistics on portfolio"
     )
-
-    class Config:
-        allow_population_by_field_name = True
 
 
 class BacktestResult(BaseModel):
@@ -683,10 +654,6 @@ class BacktestResult(BaseModel):
         description="Number of days of out of sample days"
     )
 
-    class Config:
-        allow_population_by_field_name = True
-
-
 # ============== RESPONSE MODELS ==============
 
 class BacktestResponse(BaseModel):
@@ -716,9 +683,6 @@ class UnauthorizedError(BaseModel):
         alias="www_authenticate",
         description="Header"
     )
-
-    class Config:
-        allow_population_by_field_name = True
 
 
 # ============== EXAMPLE USAGE ==============
