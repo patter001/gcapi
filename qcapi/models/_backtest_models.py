@@ -8,6 +8,8 @@ from enum import Enum
 
 class CreateBacktestRequest(BaseModel):
     """Request to create a new backtest."""
+    model_config = ConfigDict(validate_by_name=True)
+
     project_id: int = Field(
         ...,
         alias="projectId",
@@ -51,6 +53,7 @@ class TradeDirection(str, Enum):
 
 class Symbol(BaseModel):
     """Represents a unique security identifier."""
+    model_config = ConfigDict(validate_by_name=True)
     value: str = Field(..., description="The current symbol for this ticker")
     id: str = Field(..., description="The security identifier for this symbol")
     permtick: str = Field(..., description="The current symbol for this ticker")
@@ -58,6 +61,7 @@ class Symbol(BaseModel):
 
 class ResearchGuide(BaseModel):
     """A power gauge for backtests, time and parameters to estimate the overfitting risk."""
+    model_config = ConfigDict(validate_by_name=True)
     minutes: int = Field(..., description="Number of minutes used in developing the current backtest")
     backtest_count: int = Field(
         ...,
@@ -69,17 +73,20 @@ class ResearchGuide(BaseModel):
 
 class ChartSummary(BaseModel):
     """Contains the names of all charts."""
+    model_config = ConfigDict(validate_by_name=True)
     name: str = Field(..., description="Name of the Chart")
 
 
 class ParameterSet(BaseModel):
     """Parameter set."""
+    model_config = ConfigDict(validate_by_name=True)
     name: str = Field(..., description="Name of parameter")
     value: float = Field(..., description="Value of parameter")
 
 
 class RuntimeStatistics(BaseModel):
     """Runtime banner/updating statistics."""
+    model_config = ConfigDict(validate_by_name=True)
     equity: Optional[str] = Field(None, alias="Equity", description="Total portfolio value")
     fees: Optional[str] = Field(None, alias="Fees", description="Transaction fee")
     holdings: Optional[str] = Field(None, alias="Holdings", description="Equity value of security holdings")
@@ -96,6 +103,7 @@ class RuntimeStatistics(BaseModel):
 
 class StatisticsResult(BaseModel):
     """Statistics information sent during the algorithm operations."""
+    model_config = ConfigDict(validate_by_name=True)
     total_orders: Optional[str] = Field(None, alias="Total Orders", description="Total number of orders")
     average_win: Optional[str] = Field(None, alias="Average Win", description="The average rate of return for winning trades")
     average_loss: Optional[str] = Field(None, alias="Average Loss", description="The average rate of return for losing trades")
@@ -162,6 +170,7 @@ class StatisticsResult(BaseModel):
 
 class TradeStatistics(BaseModel):
     """A set of statistics calculated from a list of closed trades."""
+    model_config = ConfigDict(validate_by_name=True)
 
     start_date_time: datetime | None = Field(
         None,
@@ -373,6 +382,7 @@ class TradeStatistics(BaseModel):
 
 class PortfolioStatistics(BaseModel):
     """Represents a set of statistics calculated from equity and benchmark samples."""
+    model_config = ConfigDict(validate_by_name=True)
     average_win_rate: float = Field(
         ...,
         alias="averageWinRate",
@@ -481,6 +491,7 @@ class PortfolioStatistics(BaseModel):
 
 class Trade(BaseModel):
     """Represents a closed trade."""
+    model_config = ConfigDict(validate_by_name=True)
     symbol: Symbol = Field(..., description="Represents a unique security identifier")
     entry_time: datetime = Field(
         ...,
@@ -528,6 +539,7 @@ class Trade(BaseModel):
 
 class AlgorithmPerformance(BaseModel):
     """The AlgorithmPerformance class is a wrapper for TradeStatistics and PortfolioStatistics."""
+    model_config = ConfigDict(validate_by_name=True)
     trade_statistics: TradeStatistics = Field(
         ...,
         alias="tradeStatistics",
@@ -547,6 +559,7 @@ class AlgorithmPerformance(BaseModel):
 
 class BacktestResult(BaseModel):
     """Results object class. Results are exhaust from backtest or live algorithms running in LEAN."""
+    model_config = ConfigDict(validate_by_name=True)
     note: None | str = Field(None, description="Note on the backtest attached by the user")
     name: str = Field(..., description="Name of the backtest")
     organization_id: str = Field(
@@ -658,6 +671,7 @@ class BacktestResult(BaseModel):
 
 class BacktestResponse(BaseModel):
     """Collection container for a list of backtests for a project."""
+    model_config = ConfigDict(validate_by_name=True)
     backtest: BacktestResult = Field(
         ...,
         description="Collection of backtests for a project"
@@ -678,6 +692,7 @@ class BacktestResponse(BaseModel):
 
 class UnauthorizedError(BaseModel):
     """Unauthorized response from the API."""
+    model_config = ConfigDict(validate_by_name=True)
     www_authenticate: str = Field(
         ...,
         alias="www_authenticate",
