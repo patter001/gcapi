@@ -23,8 +23,13 @@ dependencies = [
     "pydantic",
 ]
 
+[dependency-groups]
+dev = [
+  "pytest"
+]
 
 [tool.ruff]
 line-length = 120
 
 [tool.ruff.lint]
+
