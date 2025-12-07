@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING, Literal, Optional
 if TYPE_CHECKING:
     from .._client import QCClient
 
+
 class CompileEndpoint:
     def __init__(self, client: "QCClient", url):
         self._client = client
@@ -25,16 +26,17 @@ class CompileEndpoint:
             response_type=CompileReadResponse,
         )
 
+
 class CompileReadResponse(BaseModel):
     compileId: str
-    state: Literal['InQueue', 'BuildSuccess', 'BuildError']
+    state: Literal["InQueue", "BuildSuccess", "BuildError"]
     success: bool
     errors: Optional[list[str]] = None
     logs: Optional[list[str]] = None
-    
+
+
 class CompileResponse(CompileReadResponse):
     projectId: int
-    parameters: list # this was empty in my test
+    parameters: list  # this was empty in my test
     signature: str
     signatureOrder: list[str]
-

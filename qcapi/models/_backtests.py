@@ -37,7 +37,7 @@ class BacktestSummaryResult(BaseModel):
     winRate: float
 
 
-class BacktestSummaryResponse (BaseModel):
+class BacktestSummaryResponse(BaseModel):
     backtests: list[BacktestSummaryResult]
     count: int
     success: bool

@@ -19,6 +19,7 @@ T = TypeVar("T")
 
 _LOG = getLogger("qcapi")
 
+
 class QCClient:
     url: str = ""
     token: str = ""
@@ -80,7 +81,7 @@ class QCClient:
             response.raise_for_status()
             resp_data = response.json()
             # if loading, keep polling until we hit the timeout
-            if response.json().get("status", None) == "loading" and time.time() - first_time < self._timeout*2:
+            if response.json().get("status", None) == "loading" and time.time() - first_time < self._timeout * 2:
                 continue
             elif not resp_data.get("success", True):
                 errors = resp_data.get("errors", None)
