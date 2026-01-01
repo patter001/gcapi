@@ -1,9 +1,13 @@
 from functools import cache
 import time
 from qcapi import QCClient
+from qcapi.models import ChartSeriesTypeEnum
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import plotly.graph_objects as go
+from datetime import datetime
+
 
 load_dotenv()
 
@@ -37,3 +41,51 @@ def run_backtest(project_id: str | int, output_dir: Path, test_name: str, parame
 
     if delete_after:
         client.backtests.delete(project_id, response.backtest.backtest_id)
+
+
+def draw_chart(project_id, backtest_id, chart_name, series_name):
+    client = get_client()
+    # note: the count needs to be quite large due to equity having multiple per points per day
+    resp = client.backtests.chart.read(project_id, backtest_id, chart_name, 50_000)
+    if resp.chart is None:
+        raise RuntimeError("Missing chart daa")
+    traces = []
+    for name, series in resp.chart.series.items():
+        print(name)
+        print(len(series.values))
+        if series.seriesType == ChartSeriesTypeEnum.Line:
+            trace = go.Scatter(
+                x=[datetime.fromtimestamp(t[0]) for t in series.values],
+                y=[t[1] for t in series.values],
+                mode="lines",
+                name=series.name,
+            )
+            traces.append(trace)
+        elif series.seriesType == ChartSeriesTypeEnum.Candle:
+            # Create candlestick trace
+            trace = go.Candlestick(
+                x=[datetime.fromtimestamp(t[0]) for t in series.values],
+                open=[t[1] for t in series.values],
+                high=[t[2] for t in series.values],
+                low=[t[3] for t in series.values],
+                close=[t[4] for t in series.values],
+                name=series.name,
+            )
+            traces.append(trace)
+        elif series.seriesType == ChartSeriesTypeEnum.Scatter:
+            marker = "triangle-up" if series.scatterMarkerSymbol == "triangle" else series.scatterMarkerSymbol
+            trace = go.Scatter(
+                x=[datetime.fromtimestamp(t["x"]) for t in series.values],
+                y=[t["y"] for t in series.values],
+                mode="markers",
+                name=series.name,
+                marker=dict(symbol=marker, size=10),
+            )
+            traces.append(trace)
+        elif series.seriesType == ChartSeriesTypeEnum.Bar:
+            # not supported yet
+            continue
+        else:
+            breakpoint()
+    fig = go.Figure(traces)
+    fig.show()

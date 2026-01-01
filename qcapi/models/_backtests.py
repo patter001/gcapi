@@ -1,9 +1,8 @@
 # https://www.quantconnect.com/docs/v2/cloud-platform/api-reference/backtest-management/list-backtests
 
 from __future__ import annotations
-from typing import Optional, Any
-from pydantic import BaseModel, Field
-from datetime import datetime
+from typing import Optional
+from pydantic import BaseModel
 
 # parameter set is just a dict
 ParameterSet = dict | list
