@@ -25,7 +25,8 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-  "pytest"
+  "pytest",
+  "dotenv"
 ]
 
 [tool.ruff]
