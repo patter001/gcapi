@@ -325,7 +325,8 @@ class Trade(BaseModel):
     """Represents a closed trade."""
 
     model_config = ConfigDict(validate_by_name=True)
-    symbol: Symbol = Field(..., description="Represents a unique security identifier")
+    symbol: Optional[Symbol] = Field(None, description="Represents a unique security identifier")
+    symbols: Optional[list[Symbol]] = Field(None)
     entry_time: datetime = Field(..., alias="entryTime", description="The date and time the trade was opened")
     entry_price: float = Field(..., alias="entryPrice", description="The price at which the trade was opened")
     # Docs say it should have been this
